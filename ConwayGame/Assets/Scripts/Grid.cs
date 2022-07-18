@@ -16,7 +16,6 @@ public class Grid : MonoBehaviour
             {
                 Cell cell= Instantiate(CellPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
                 cell.name = $"X:{x} - Y:{y}";
-                cell.SetAlive(RandomCellAlive());
                 gridData[x, y] = cell;
             }
         }
@@ -53,6 +52,23 @@ public class Grid : MonoBehaviour
         else
         {
             if (cell.Neighbours == 3) cell.SetAlive(true);
+        }
+    }
+
+    public void KillAllCells()
+    {
+        foreach (Cell cell in gridData)
+        {
+            cell.SetAlive(false);
+        }
+    }
+
+    public void RandomizeGrid()
+    {
+        foreach (Cell cell in gridData)
+        {
+            cell.SetAlive(false);
+            cell.SetAlive(RandomCellAlive());
         }
     }
 }
